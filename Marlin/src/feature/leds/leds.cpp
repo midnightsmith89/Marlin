@@ -53,7 +53,7 @@
   );
 #endif
 
-#if EITHER(LED_CONTROL_MENU, PRINTER_EVENT_LEDS)
+#if ANY(LED_CONTROL_MENU, PRINTER_EVENT_LEDS, CASE_LIGHT_IS_COLOR_LED)
   LEDColor LEDLights::color;
   bool LEDLights::lights_on;
 #endif
@@ -75,9 +75,7 @@ void LEDLights::setup() {
 }
 
 void LEDLights::set_color(const LEDColor &incol
-  #if ENABLED(NEOPIXEL_LED)
-    , bool isSequence/*=false*/
-  #endif
+  OPTARG(NEOPIXEL_LED, bool isSequence/*=false*/)
 ) {
 
   #if ENABLED(NEOPIXEL_LED)
